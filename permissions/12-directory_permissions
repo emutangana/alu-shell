@@ -1,2 +1,2 @@
 #!/bin/bash
-mkdir -p welcome/to/school
+mkdir my_dir | chmod 751 my_dir
