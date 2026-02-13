@@ -1,4 +1,4 @@
-[200~#!/usr/bin/env bash
+#!/usr/bin/env bash
 # Creates a PID file, runs indefinitely, handles signals, and cleans up properly
 
 PIDFILE="/var/run/myscript.pid"
