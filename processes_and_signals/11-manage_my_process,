@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# 11-manage_my_process
+
+PID_FILE="/var/run/my_process.pid"
+SCRIPT_PATH="./manage_my_process"
+
+case "$1" in
+    start)
+        # Start the script in the background and capture PID
+        "$SCRIPT_PATH" &
+        echo $! > "$PID_FILE"
+        echo "manage_my_process started"
+        ;;
+    stop)
+        # Kill the process using the stored PID and clean up
+        if [ -f "$PID_FILE" ]; then
+            kill "$(cat "$PID_FILE")"
+            rm "$PID_FILE"
+            echo "manage_my_process stopped"
+        fi
+        ;;
+    restart)
+        # Stop existing process
+        if [ -f "$PID_FILE" ]; then
+            kill "$(cat "$PID_FILE")"
+            rm "$PID_FILE"
+        fi
+        # Start new process
+        "$SCRIPT_PATH" &
+        echo $! > "$PID_FILE"
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
